@@ -12,9 +12,9 @@ ReactDOM.render(
 
 
         <Router>
-            <AuthContext.provider>
+            <AuthContextProvider>
                 <App/>
-            </AuthContext.provider>
+            </AuthContextProvider>
         </Router>
 
     </React.StrictMode>,

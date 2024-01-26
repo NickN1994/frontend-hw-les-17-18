@@ -31,7 +31,7 @@ function SignUp() {
               console.log('registratie is succesvol.')
               setDataForm(result.data);
           } catch (e) {
-              console.error(e + "Het is niet gelukt om je bericht te verzenden");
+              console.error(e);
           } finally {
               setIsLoading(false);
               navigate('/signin');

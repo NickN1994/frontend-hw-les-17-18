@@ -16,6 +16,7 @@ function AuthContextProvider({children}) {
     const navigate = useNavigate();
 
 useEffect(() => {
+    const abortController = new AbortController();
     const token = localStorage.getItem('token');
 
     if (token && isTokenValid(token)) {
@@ -29,14 +30,17 @@ useEffect(() => {
             status: 'done'
         })
     }
+    return () => {
+        console.log("clean up");
+        abortController.abort();
+    }
 
 }, [])
 
     async function login (token) {
         localStorage.setItem('token', token);
-        console.log("token", token)
+
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken)
         
         try {
 
@@ -49,7 +53,7 @@ useEffect(() => {
             setAuth({
                 isAuth: true,
                 user: {
-                    username: response.data.username,
+                    username: response.data.gebruikersnaam,
                     email: response.data.email,
                     id: response.data.id
                 },
@@ -58,7 +62,6 @@ useEffect(() => {
             console.log("Ingelogd")
             navigate('/profile')
         } catch (e) {
-            console.log("Uitgelogd")
             logout();
         }
     }
@@ -75,7 +78,7 @@ useEffect(() => {
     }
 
     const data = {
-        isAuth: auth.isAuth,
+        auth: auth,
         login: login,
         logout: logout
     }

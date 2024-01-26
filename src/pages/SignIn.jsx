@@ -25,7 +25,6 @@ function SignIn() {
                 ...data}
             );
                console.log(result.data.accessToken)
-            console.log('Login is succesvol.')
             setDataForm(result.data);
             login(result.data.accessToken);
 
@@ -33,7 +32,6 @@ function SignIn() {
             console.error(e + "Inloggen mislukt");
         } finally {
             setIsLoading(false);
-
         }
     }
 
